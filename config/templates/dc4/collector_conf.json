@@ -1,5 +1,5 @@
 {
-  "base_url": "https://api.jp.dac.nokia.com/api/ndac/v2",
+  "base_url": "https://api.west.us.dac.nokia.com/api/ndac/v2",
   "users": [
     {
       "email_id": "<USER EMAIL>",
