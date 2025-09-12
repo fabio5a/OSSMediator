@@ -25,12 +25,12 @@ mkdir -p es_data
 chmod g+rwx es_data
 chgrp 0 es_data
 chown 1000:1000 es_data/
-docker start ndac_oss_opensearch 2>/dev/null || echo "Building OpenSearch container..." ; docker run --name "ndac_oss_opensearch" --restart=always -t -d -p 9200:9200 -p 9600:9600 --ulimit nofile=65535:65535 -e "discovery.type=single-node" -e 'DISABLE_SECURITY_PLUGIN=true' -e OPENSEARCH_JAVA_OPTS="-Xms$heap_size -Xmx$heap_size" -v $(pwd)/es_data:/usr/share/opensearch/data opensearchproject/opensearch:2.19.1
+docker start ndac_oss_opensearch 2>/dev/null || echo "Building OpenSearch container..." ; docker run --name "ndac_oss_opensearch" --restart=always -t -d -p 9200:9200 -p 9600:9600 --ulimit nofile=65535:65535 -e "discovery.type=single-node" -e 'DISABLE_SECURITY_PLUGIN=true' -e OPENSEARCH_JAVA_OPTS="-Xms$heap_size -Xmx$heap_size" -v $(pwd)/es_data:/usr/share/opensearch/data opensearchproject/opensearch:3.1.0
 
 #Grafana
 mkdir -p grafana_storage
 chown 472:472 grafana_storage/
-docker start ndac_oss_grafana 2>/dev/null || echo "Building Grafana container..." ; docker run -d --name "ndac_oss_grafana" --restart unless-stopped --network host  -e "GF_INSTALL_PLUGINS=grafana-opensearch-datasource" -v $(pwd)/grafana_storage:/var/lib/grafana -v $(pwd)/grafana_data/provisioning/dashboards:/etc/grafana/provisioning/dashboards -v $(pwd)/grafana_data/provisioning/datasources:/etc/grafana/provisioning/datasources -v $(pwd)/grafana_data/dashboards:/etc/grafana/dashboards grafana/grafana-oss:11.6.1
+docker start ndac_oss_grafana 2>/dev/null || echo "Building Grafana container..." ; docker run -d --name "ndac_oss_grafana" --restart unless-stopped --network host  -e "GF_INSTALL_PLUGINS=grafana-opensearch-datasource" -v $(pwd)/grafana_storage:/var/lib/grafana -v $(pwd)/grafana_data/provisioning/dashboards:/etc/grafana/provisioning/dashboards -v $(pwd)/grafana_data/provisioning/datasources:/etc/grafana/provisioning/datasources -v $(pwd)/grafana_data/dashboards:/etc/grafana/dashboards grafana/grafana-oss:12.1.1
 
 #Collector DC1
 docker start ndac_oss_collector_dc1 2>/dev/null || echo "Building DC1 collector container..." ; docker run -d --name "ndac_oss_collector_dc1" --restart unless-stopped --network host -v $(pwd)/reports/dc1:/reports  -v $(pwd)/collector/logs/dc1:/collector/log -v $(pwd)/collector/checkpoints/dc1:/collector/bin/checkpoints -v $(pwd)/config/dc1/.secret:/collector/bin/.secret -v $(pwd)/config/dc1/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
