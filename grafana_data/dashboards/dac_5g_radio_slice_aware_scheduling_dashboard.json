@@ -175,7 +175,7 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -185,7 +185,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.3",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "bucketAggs": [
@@ -249,7 +249,7 @@
               "type": "bucket_script"
             }
           ],
-          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRRESOURCEGROUP* AND pm_data.NCUPNRG_M55910C00002:*",
+          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRCELL*",
           "refId": "A",
           "timeField": "pm_data_source.end_timestamp"
         }
@@ -267,9 +267,20 @@
           }
         },
         {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "([^\\s,]*NRCELL-[0-9]*).*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "seriesToRows",
+          "options": {}
+        },
+        {
           "id": "prepareTimeSeries",
           "options": {
-            "format": ""
+            "format": "multi"
           }
         }
       ],
@@ -349,7 +360,7 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -359,7 +370,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.3",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "bucketAggs": [
@@ -423,7 +434,7 @@
               "type": "bucket_script"
             }
           ],
-          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRRESOURCEGROUP* AND pm_data.NCUPNRG_M55910C00004:*",
+          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRCELL*",
           "refId": "A",
           "timeField": "pm_data_source.end_timestamp"
         }
@@ -441,9 +452,20 @@
           }
         },
         {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "([^\\s,]*NRCELL-[0-9]*).*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "seriesToRows",
+          "options": {}
+        },
+        {
           "id": "prepareTimeSeries",
           "options": {
-            "format": ""
+            "format": "multi"
           }
         }
       ],
@@ -454,7 +476,7 @@
         "type": "grafana-opensearch-datasource",
         "uid": "${datasource}"
       },
-      "description": "This KPI shows the average utilization of PDSCH PRBs for slice-aware traffic per cell per resource group.",
+      "description": "This KPI shows the average utilization of PDSCH PRBs for slice-aware traffic per cell.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -517,13 +539,13 @@
         "x": 0,
         "y": 14
       },
-      "id": 8,
+      "id": 5,
       "interval": "$agg",
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -533,7 +555,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.3",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "bucketAggs": [
@@ -580,13 +602,18 @@
               "type": "sum"
             },
             {
-              "field": "pm_data.NCUPNRG_M55910C00028",
+              "field": "pm_data.NCELA_M55308C10013",
+              "hide": true,
+              "id": "31",
+              "type": "avg"
+            },
+            {
+              "field": "pm_data.NCELA_M55308C10013",
               "hide": true,
               "id": "32",
               "type": "sum"
             },
             {
-              "hide": false,
               "id": "33",
               "pipelineVariables": [
                 {
@@ -598,22 +625,26 @@
                   "pipelineAgg": "30"
                 },
                 {
-                  "name": "m55910c00028",
+                  "name": "am55308c10013",
+                  "pipelineAgg": "31"
+                },
+                {
+                  "name": "m55308c10013",
                   "pipelineAgg": "32"
                 }
               ],
               "settings": {
-                "script": "if (params.am55910c00001 == null) { return null } else if (params.m55910c00001 == 0) { return 0 } else { return 100*(params.m55910c00001/params.m55910c00028) }"
+                "script": "if (params.am55910c00001 == null || params.am55308c10013 == null) { return null } else if (params.m55308c10013 == 0) { return 0 } else { return 100*(params.m55910c00001/params.m55308c10013) }"
               },
               "type": "bucket_script"
             }
           ],
-          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRRESOURCEGROUP* AND pm_data.NCUPNRG_M55910C00001:*",
+          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRCELL*",
           "refId": "A",
           "timeField": "pm_data_source.end_timestamp"
         }
       ],
-      "title": "NR_6127a 5G Average utilization of PDSCH PRBs for slice-aware traffic per cell per resource group [%]",
+      "title": "NR_5967a 5G Average utilization of PDSCH PRBs for slice-aware traffic [%]",
       "transformations": [
         {
           "id": "seriesToRows",
@@ -626,9 +657,20 @@
           }
         },
         {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "([^\\s,]*NRCELL-[0-9]*).*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "seriesToRows",
+          "options": {}
+        },
+        {
           "id": "prepareTimeSeries",
           "options": {
-            "format": ""
+            "format": "multi"
           }
         }
       ],
@@ -639,7 +681,7 @@
         "type": "grafana-opensearch-datasource",
         "uid": "${datasource}"
       },
-      "description": "This KPI shows the average utilization of PUSCH PRBs for slice-aware traffic per cell per resource group.",
+      "description": "This KPI shows the average utilization of PUSCH PRBs for slice-aware traffic per cell.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -702,13 +744,13 @@
         "x": 0,
         "y": 21
       },
-      "id": 9,
+      "id": 6,
       "interval": "$agg",
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -718,7 +760,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.3",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "bucketAggs": [
@@ -765,7 +807,13 @@
               "type": "sum"
             },
             {
-              "field": "pm_data.NCUPNRG_M55910C00027",
+              "field": "pm_data.NCELA_M55308C10012",
+              "hide": true,
+              "id": "31",
+              "type": "avg"
+            },
+            {
+              "field": "pm_data.NCELA_M55308C10012",
               "hide": true,
               "id": "32",
               "type": "sum"
@@ -783,22 +831,26 @@
                   "pipelineAgg": "30"
                 },
                 {
-                  "name": "m55910c00027",
+                  "name": "am55308c10012",
+                  "pipelineAgg": "31"
+                },
+                {
+                  "name": "m55308c10012",
                   "pipelineAgg": "32"
                 }
               ],
               "settings": {
-                "script": "if (params.am55910c00003 == null) { return null } else if (params.m55910c00003 == 0) { return 0 } else { return 100*(params.m55910c00003/params.m55910c00027) }"
+                "script": "if (params.am55910c00003 == null || params.am55308c10012 == null) { return null } else if (params.m55308c10012 == 0) { return 0 } else { return 100*(params.m55910c00003/params.m55308c10012) }"
               },
               "type": "bucket_script"
             }
           ],
-          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRRESOURCEGROUP* AND pm_data.NCUPNRG_M55910C00003:*",
+          "query": "pm_data_source.nhg_alias.keyword:$nhgname AND pm_data_source.dn:$ap_id AND pm_data_source.dn:*NRCELL*",
           "refId": "A",
           "timeField": "pm_data_source.end_timestamp"
         }
       ],
-      "title": "NR_6128a 5G Average utilization of PUSCH PRBs for slice-aware traffic per cell per resource group [%]",
+      "title": "NR_5968a 5G Average utilization of PUSCH PRBs for slice-aware traffic [%]",
       "transformations": [
         {
           "id": "seriesToRows",
@@ -811,9 +863,20 @@
           }
         },
         {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "([^\\s,]*NRCELL-[0-9]*).*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "seriesToRows",
+          "options": {}
+        },
+        {
           "id": "prepareTimeSeries",
           "options": {
-            "format": ""
+            "format": "multi"
           }
         }
       ],

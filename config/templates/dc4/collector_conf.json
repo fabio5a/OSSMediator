@@ -1,17 +1,15 @@
 {
-  "base_url": "https://console.west.us.dac.nokia.com/api/ndac/v2",
+  "base_url": "https://api.west.us.dac.nokia.com/api/ndac/v2",
   "users": [
     {
       "email_id": "<USER EMAIL>",
       "response_dest": "<DIRECTORY PATH>",
-      "auth_type": "<PASSWORD/ADTOKEN>",
-      "slice_ids": []
+      "auth_type": "<PASSWORD/ADTOKEN>"
     },
     {
       "email_id": "<USER EMAIL>",
       "response_dest": "<DIRECTORY PATH>",
-      "auth_type": "<PASSWORD/ADTOKEN>",
-      "slice_ids": []
+      "auth_type": "<PASSWORD/ADTOKEN>"
     }
   ],
   "azure_session_api": {
@@ -25,7 +23,8 @@
   "list_network_api": {
     "nhg_api": "/network-hardware-groups",
     "gng_api": "/generic-network-groups",
-    "interval": 60
+    "interval": 60,
+    "slice_ids": []
   },
   "userAG_apis": {
     "list_orgUUID": "/organizations",
@@ -58,13 +57,52 @@
     {
       "api": "/network-hardware-groups/{nhg_id}/fmdata",
       "type": "ACTIVE",
-      "metric_type": "ALL",
+      "metric_type": "RADIO",
       "interval": 30
     },
     {
       "api": "/network-hardware-groups/{nhg_id}/fmdata",
       "type": "HISTORY",
-      "metric_type": "ALL",
+      "metric_type": "RADIO",
+      "interval": 1,
+      "sync_duration": 15
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "ACTIVE",
+      "metric_type": "DAC",
+      "interval": 30
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "HISTORY",
+      "metric_type": "DAC",
+      "interval": 1,
+      "sync_duration": 15
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "ACTIVE",
+      "metric_type": "CORE",
+      "interval": 30
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "HISTORY",
+      "metric_type": "CORE",
+      "interval": 1,
+      "sync_duration": 15
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "ACTIVE",
+      "metric_type": "IXR",
+      "interval": 30
+    },
+    {
+      "api": "/network-hardware-groups/{nhg_id}/fmdata",
+      "type": "HISTORY",
+      "metric_type": "IXR",
       "interval": 1,
       "sync_duration": 15
     }
