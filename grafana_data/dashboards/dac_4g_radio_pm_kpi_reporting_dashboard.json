@@ -126,8 +126,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": 0
+                "color": "green"
               },
               {
                 "color": "red",
@@ -278,7 +277,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "11.6.1",
       "targets": [
         {
           "alias": "LTE_5750a E-UTRAN Cell Availability Ratio {{term pm_data_source.dn.keyword}}",
@@ -3598,7 +3597,7 @@
   ],
   "preload": true,
   "refresh": "15m",
-  "schemaVersion": 41,
+  "schemaVersion": 40,
   "tags": [
     "Radio4G"
   ],
