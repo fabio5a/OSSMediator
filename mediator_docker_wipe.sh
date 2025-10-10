@@ -10,9 +10,9 @@ show_help() {
     echo "  -os, --opensearch, os"			Delete OpenSearch data   
     echo "  -g, --grafana, grafana"			Delete OpenSearch data   
 	echo "  -p, --plugin, plugin"			Delete ElasticSearch plugin 
-	echo "  -dc1, --dc1, dc1"					Delete DC1 Collector
-	echo "  -dc4, --dc4, dc4"					Delete DC4 Collector					
-	echo "  -dc5, --dc5, dc5"					Delete DC5 Collector
+	echo "  -EMEA, --EMEA, EMEA"					Delete EMEA Collector
+	echo "  -WEST, --WEST, WEST"					Delete WEST Collector					
+	echo "  -APAC, --APAC, APAC"					Delete APAC Collector
 	echo
 }
 
@@ -24,44 +24,44 @@ deleteDeployment(){
 	deleteElasticSearchPlugin
 	deleteOpenSearch
 	deleteGrafana
-	deleteDC1
-	deleteDC4
-	deleteDC5
+	deleteEMEA
+	deleteWEST
+	deleteAPAC
 	rm -rf $(pwd)/collector/ $(pwd)/plugin/ $(pwd)/es_data/ $(pwd)/grafana_storage/ $(pwd)/reports
 	echo "OSS Mediator deployment deleted!"
 }
 
-# Function to delete dc1 collector
-deleteDC1(){
-	echo "Removing dc1 collector..."
-	docker stop ndac_oss_collector_dc1
-	docker rm ndac_oss_collector_dc1
-	echo "Removing dc1 collector data..."
-	rm -rf $(pwd)/collector/logs/dc1
-	rm -rf $(pwd)/collector/checkpoints/dc1
-	rm -rf $(pwd)/reports/dc1
+# Function to delete EMEA collector
+deleteEMEA(){
+	echo "Removing EMEA collector..."
+	docker stop ndac_oss_collector_EMEA
+	docker rm ndac_oss_collector_EMEA
+	echo "Removing EMEA collector data..."
+	rm -rf $(pwd)/collector/logs/EMEA
+	rm -rf $(pwd)/collector/checkpoints/EMEA
+	rm -rf $(pwd)/reports/EMEA
 }
 
-# Function to delete dc4 collector
-deleteDC4(){
-	echo "Removing dc4 collector..."
-	docker stop ndac_oss_collector_dc4
-	docker rm ndac_oss_collector_dc4
-	echo "Removing dc4 collector data..."
-	rm -rf $(pwd)/collector/logs/dc4
-	rm -rf $(pwd)/collector/checkpoints/dc4
-	rm -rf $(pwd)/reports/dc4
+# Function to delete WEST collector
+deleteWEST(){
+	echo "Removing WEST collector..."
+	docker stop ndac_oss_collector_WEST
+	docker rm ndac_oss_collector_WEST
+	echo "Removing WEST collector data..."
+	rm -rf $(pwd)/collector/logs/WEST
+	rm -rf $(pwd)/collector/checkpoints/WEST
+	rm -rf $(pwd)/reports/WEST
 }
 
-# Function to delete dc5 collector
-deleteDC5(){
-	echo "Removing dc5 collector..."
-	docker stop ndac_oss_collector_dc5
-	docker rm ndac_oss_collector_dc5
-	echo "Removing dc5 collector data..."
-	rm -rf $(pwd)/collector/logs/dc5
-	rm -rf $(pwd)/collector/checkpoints/dc5
-	rm -rf $(pwd)/reports/dc5
+# Function to delete APAC collector
+deleteAPAC(){
+	echo "Removing APAC collector..."
+	docker stop ndac_oss_collector_APAC
+	docker rm ndac_oss_collector_APAC
+	echo "Removing APAC collector data..."
+	rm -rf $(pwd)/collector/logs/APAC
+	rm -rf $(pwd)/collector/checkpoints/APAC
+	rm -rf $(pwd)/reports/APAC
 }
 
 # Function to delete dc7 collector
@@ -130,14 +130,14 @@ else
 		-g|--grafana|grafana)	
 			deleteGrafana
 			;;	
-		-dc1|--dc1|dc1)
-			deleteDC1
+		-EMEA|--EMEA|EMEA)
+			deleteEMEA
 			;;
-		-dc4|--dc4|dc4)
-			deleteDC4
+		-WEST|--WEST|WEST)
+			deleteWEST
 			;;
-		-dc5|--dc5|dc5)
-			deleteDC5
+		-APAC|--APAC|APAC)
+			deleteAPAC
 			;;
 		*)
             echo "Invalid command. Use -h or --help for usage information."
