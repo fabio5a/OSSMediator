@@ -32,24 +32,22 @@ mkdir -p grafana_storage
 chown 472:472 grafana_storage/
 docker start ndac_oss_grafana 2>/dev/null || echo "Building Grafana container..." ; docker run -d --name "ndac_oss_grafana" --restart unless-stopped --network host  -e "GF_INSTALL_PLUGINS=grafana-opensearch-datasource" -v $(pwd)/grafana_storage:/var/lib/grafana -v $(pwd)/grafana_data/provisioning/dashboards:/etc/grafana/provisioning/dashboards -v $(pwd)/grafana_data/provisioning/datasources:/etc/grafana/provisioning/datasources -v $(pwd)/grafana_data/dashboards:/etc/grafana/dashboards grafana/grafana-oss:11.6.1
 
-#Collector DC1
-docker start ndac_oss_collector_dc1 2>/dev/null || echo "Building DC1 collector container..." ; docker run -d --name "ndac_oss_collector_dc1" --restart unless-stopped --network host -v $(pwd)/reports/dc1:/reports  -v $(pwd)/collector/logs/dc1:/collector/log -v $(pwd)/collector/checkpoints/dc1:/collector/bin/checkpoints -v $(pwd)/config/dc1/.secret:/collector/bin/.secret -v $(pwd)/config/dc1/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
+#Collector EMEA
+docker start ndac_oss_collector_EMEA 2>/dev/null || echo "Building EMEA collector container..." ; docker run -d --name "ndac_oss_collector_EMEA" --restart unless-stopped --network host -v $(pwd)/reports/EMEA:/reports  -v $(pwd)/collector/logs/EMEA:/collector/log -v $(pwd)/collector/checkpoints/EMEA:/collector/bin/checkpoints -v $(pwd)/config/EMEA/.secret:/collector/bin/.secret -v $(pwd)/config/EMEA/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
 #sleep 5
 
-#Collector DC4
-docker start ndac_oss_collector_dc4 2>/dev/null || echo "Building DC4 collector container..." ; docker run -d --name "ndac_oss_collector_dc4" --restart unless-stopped --network host -v $(pwd)/reports/dc4:/reports  -v $(pwd)/collector/logs/dc4:/collector/log -v $(pwd)/collector/checkpoints/dc4:/collector/bin/checkpoints -v $(pwd)/config/dc4/.secret:/collector/bin/.secret -v $(pwd)/config/dc4/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
+#Collector WEST
+docker start ndac_oss_collector_WEST 2>/dev/null || echo "Building WEST collector container..." ; docker run -d --name "ndac_oss_collector_WEST" --restart unless-stopped --network host -v $(pwd)/reports/WEST:/reports  -v $(pwd)/collector/logs/WEST:/collector/log -v $(pwd)/collector/checkpoints/WEST:/collector/bin/checkpoints -v $(pwd)/config/WEST/.secret:/collector/bin/.secret -v $(pwd)/config/WEST/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
 #sleep 5
 
-#Collector DC5
-docker start ndac_oss_collector_dc5 2>/dev/null || echo "Building DC5 collector container..." ; docker run -d --name "ndac_oss_collector_dc5" --restart unless-stopped --network host -v $(pwd)/reports/dc5:/reports  -v $(pwd)/collector/logs/dc5:/collector/log -v $(pwd)/collector/checkpoints/dc5:/collector/bin/checkpoints -v $(pwd)/config/dc5/.secret:/collector/bin/.secret -v $(pwd)/config/dc5/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
+#Collector APAC
+docker start ndac_oss_collector_APAC 2>/dev/null || echo "Building APAC collector container..." ; docker run -d --name "ndac_oss_collector_APAC" --restart unless-stopped --network host -v $(pwd)/reports/APAC:/reports  -v $(pwd)/collector/logs/APAC:/collector/log -v $(pwd)/collector/checkpoints/APAC:/collector/bin/checkpoints -v $(pwd)/config/APAC/.secret:/collector/bin/.secret -v $(pwd)/config/APAC/collector_conf.json:/collector/resources/conf.json ossmediatorcollector:$version
 #sleep 5
 
 echo "Building ElasticSearchPlugin container..."
 sleep 30
 
 #ElasticSearchPlugin
-docker start ndac_oss_elasticsearchplugin 2>/dev/null || docker run -d --name "ndac_oss_elasticsearchplugin" --restart unless-stopped --network host -v $(pwd)/reports/dc1:/reports/dc1 -v $(pwd)/reports/dc4:/reports/dc4 -v $(pwd)/reports/dc5:/reports/dc5 -v $(pwd)/plugin/logs:/plugin/log -v $(pwd)/config/ElasticSearchPlugin/plugin_conf.json:/plugin/resources/conf.json elasticsearchplugin:$version
-
+docker start ndac_oss_elasticsearchplugin 2>/dev/null || docker run -d --name "ndac_oss_elasticsearchplugin" --restart unless-stopped --network host -v $(pwd)/reports/EMEA:/reports/EMEA -v $(pwd)/reports/WEST:/reports/WEST -v $(pwd)/reports/APAC:/reports/APAC -v $(pwd)/plugin/logs:/plugin/log -v $(pwd)/config/ElasticSearchPlugin/plugin_conf.json:/plugin/resources/conf.json elasticsearchplugin:$version
 
 echo "OSSMediator is started, open http://<IP_Address>:3000/dashboards to view the dashboards."
-
