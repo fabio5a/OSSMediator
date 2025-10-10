@@ -53,6 +53,7 @@ MediatorSetup contents:
    * To download Azure token from NDAC Manager please follow `Steps to Download SSO Azure token` section. 
 5. Update config ElasticSearchPlugin plugin_conf.json template file for the field `<SOURCE DIRECTORY PATH>` with `/reports` value (Remove duplicate values).  
 6. Check if execute permissions are there for the `mediator_docker_startup.sh` script, then execute `sudo ./mediator_docker_startup.sh` script to start the OSSMediator modules inside docker.
+   * If scripts permission are not executable change it with `chmod +x mediator_docker*`.
 
 `mediator_docker_startup.sh` script will create following docker containers:
 * ndac_oss_opensearch: OpenSearch instance for storing KPI data.
