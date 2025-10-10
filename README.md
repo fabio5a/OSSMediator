@@ -40,12 +40,13 @@ Contents:
 3. Update config folders collector_conf.json templates with the correct `base_url`, `users` section with the credentials (`email_id`, `auth_type`) provided by NDAC Operations/Helpdesk team.  
    To download access token login to `Nokia NDAC Manager Portal` -> From User detail section -> Access Info -> Download token  
    Update the authorization type for the user - either `PASSWORD` or `ADTOKEN`. `ADTOKEN` is for ABAC users where the users will get the sso azure login token from the user management. `PASSWORD` is for the usual RBAC users.
-   Update the `response_dest` with `/reports` value.  
-4. Configure the passwords/authorization token for the users configured in collector_conf.json file for API access by executing `storesecret`. 
+   Update the `response_dest` with `/reports` value.
+   * Note: If you dont want to deploy any specific region you dont need to fil the config files, just comment out specific region run in `mediator_docker_startup.sh` script.
+5. Configure the passwords/authorization token for the users configured in collector_conf.json file for API access by executing `storesecret`. 
    Check if execute permissions are there for the `storesecret` binary, if not set it as `chmod 777 storesecret`, then execute `sudo ./storesecret -c collector_conf.json` command to store the user passwords/token.
    * To download Azure token from NDAC Manager please follow `Steps to Download SSO Azure token` section. 
-5. Update config ElasticSearchPlugin plugin_conf.json template file for the field `<SOURCE DIRECTORY PATH>` with `/reports` value (Remove duplicate values).  
-6. Check if execute permissions are there for the `mediator_docker_startup.sh` script, then execute `sudo ./mediator_docker_startup.sh` script to start the OSSMediator modules inside docker.
+6. Update config ElasticSearchPlugin plugin_conf.json template file for the field `<SOURCE DIRECTORY PATH>` with `/reports` value (Remove duplicate values).  
+7. Check if execute permissions are there for the `mediator_docker_startup.sh` script, then execute `sudo ./mediator_docker_startup.sh` script to start the OSSMediator modules inside docker.
    * If scripts permission are not executable change it with `chmod +x mediator_docker*`.
 
 `mediator_docker_startup.sh` script will create following docker containers:
