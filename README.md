@@ -1,21 +1,5 @@
 # Forked from https://github.com/nokia/OSSMediator (4.6.0)
 
-# Project Structure
-    .  
-    ├── pkg       	  				 	# Source files (nokia/OSSMediator v4.6.0)
-    ├── grafana_data   				 	# Grafana Data
-    ├── config         					# config folders/files
-		├── EMEA						
-		├── WEST
-		├── APAC
-		├── ElasticSearcPlugin			
-    ├── mediator_docker_startup.sh		#Startup script		
-	├── mediator_docker_wipe.sh			#Deployment wipe script
-	├── mediator_docker_rebuild.sh		#Deployment rebuild script
-	├── VERSION            
-    └── README.md  
-
-
 # Table of contents
 1. [Introduction](#introduction)
 2. [OSSMediator Installation](#installation)
@@ -25,16 +9,24 @@
 
 ## Introduction <a name="introduction"></a>
 
-MediatorSetup includes scripts and Grafana template dashboards and datasource files used for installation and creation of Grafana dashboards for the PM/FM data collected using OSSMediatorCollector and ElasticsearchPlugin.  
-MediatorSetup contents:
+OSSMediator setup includes scripts and Grafana template dashboards and datasource files used for installation and creation of Grafana dashboards for the PM/FM data collected using OSSMediatorCollector and ElasticsearchPlugin.  
+Contents:
 
-| Directory/file Name              | Description                                                                                             |
-|----------------------------------|---------------------------------------------------------------------------------------------------------|
-| mediator_docker_startup.sh       | OSSMediator startup script to run inside docker.                                                        |
-| mediator_docker_wipe.sh          | OSSMediator script to wipe deployment.                                                                  |
-| mediator_docker_rebuild.sh       | OSSMediator script to rebuild deployment.                                                               |
-| collector_conf.json              | OSSMediatorCollector configuration file, default configuration file with the basic FM/PM APIs.          |
-| plugin_conf.json                 | ElasticsearchPlugin configuration file.                                                                 |
+    .  
+    ├── pkg       	  				 	# Source files (nokia/OSSMediator v4.6.0)
+    ├── grafana_data   				 	# Grafana Data
+    ├── config         					# config folders/files
+		├── EMEA						# Collector config files: collector_conf.json ; storesecret						
+		├── WEST						# Collector config files: collector_conf.json ; storesecret	
+		├── APAC						# Collector config files: collector_conf.json ; storesecret	
+		├── ElasticSearcPlugin			# Plugin config files
+    ├── mediator_docker_startup.sh		#Startup script		
+	├── mediator_docker_wipe.sh			#Deployment wipe script
+	├── mediator_docker_rebuild.sh		#Deployment rebuild script
+	├── VERSION            				
+    └── README.md  
+
+
 
 ### System Requirements <a name="system_req"></a>
 
