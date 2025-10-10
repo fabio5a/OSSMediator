@@ -64,15 +64,6 @@ deleteAPAC(){
 	rm -rf $(pwd)/reports/APAC
 }
 
-# Function to delete dc7 collector
-#deleteDC7(){
-#	docker stop ndac_oss_collector_dc7
-#	docker rm ndac_oss_collector_dc7
-#	rm -rf $(pwd)/collector/logs/dc7/
-#	rm -rf $(pwd)/collector/checkpoints/dc7/
-#	rm -rf $(pwd)/reports/dc7/
-#}
-
 # Function to delete ES Plugin 
 deleteElasticSearchPlugin(){
 	echo "Removing ElasticSearch plugin..."
