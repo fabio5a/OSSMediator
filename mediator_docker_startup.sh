@@ -48,7 +48,8 @@ echo "Building ElasticSearchPlugin container..."
 sleep 30
 
 #ElasticSearchPlugin
-docker start ndac_oss_elasticsearchplugin 2>/dev/null || docker run -d --name "ndac_oss_elasticsearchplugin" --restart unless-stopped --network host -v $(pwd)/reports/dc1:/reports/dc1 -v $(pwd)/reports/dc4:/reports/dc4 -v $(pwd)/reports/dc5:/reports/dc5 -v $(pwd)/plugin/logs:/plugin/log -v $(pwd)/config/plugin_conf.json:/plugin/resources/conf.json elasticsearchplugin:$version
+docker start ndac_oss_elasticsearchplugin 2>/dev/null || docker run -d --name "ndac_oss_elasticsearchplugin" --restart unless-stopped --network host -v $(pwd)/reports/dc1:/reports/dc1 -v $(pwd)/reports/dc4:/reports/dc4 -v $(pwd)/reports/dc5:/reports/dc5 -v $(pwd)/plugin/logs:/plugin/log -v $(pwd)/config/ElasticSearchPlugin/plugin_conf.json:/plugin/resources/conf.json elasticsearchplugin:$version
 
 
 echo "OSSMediator is started, open http://<IP_Address>:3000/dashboards to view the dashboards."
+
