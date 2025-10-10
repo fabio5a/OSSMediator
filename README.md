@@ -36,7 +36,8 @@ Contents:
 ### Installation with Docker <a name="docker_install"></a>
 
 1. Extract official pakage in `pkg` folder, then move to `OSSMediator` base directory and run `make all` command. It will create two docker images `ossmediatorcollector:<VERSION>` and `elasticsearchplugin:<VERSION>`.
-2. Update config folders collector_conf.json templates with the correct `base_url`, `users` section with the credentials (`email_id`, `auth_type`) provided by NDAC Operations/Helpdesk team.  
+   * You can delete the folder and contentes after image is created.
+3. Update config folders collector_conf.json templates with the correct `base_url`, `users` section with the credentials (`email_id`, `auth_type`) provided by NDAC Operations/Helpdesk team.  
    To download access token login to `Nokia NDAC Manager Portal` -> From User detail section -> Access Info -> Download token  
    Update the authorization type for the user - either `PASSWORD` or `ADTOKEN`. `ADTOKEN` is for ABAC users where the users will get the sso azure login token from the user management. `PASSWORD` is for the usual RBAC users.
    Update the `response_dest` with `/reports` value.  
